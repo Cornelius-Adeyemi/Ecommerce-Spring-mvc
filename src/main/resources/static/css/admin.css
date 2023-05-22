@@ -1,0 +1,232 @@
+body{
+    background-color: #f9f3f0;
+}
+
+
+#nav{
+   display: flex;
+   justify-content: center;
+}
+
+#nav > div {
+    display: flex;
+    height: 60px;
+    max-width: 1000px;
+    width: 100%;
+    color: #f0b6a2;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 10px;
+}
+
+#nav p{
+   margin: 0;
+   background-color: black;
+   border-radius: 5px;
+   cursor: pointer;
+
+}
+
+#nav a{
+    text-decoration: none;
+    padding:10px 15px;
+    display: block;
+}
+#nav h3{
+    margin: 0;
+    padding: 0;
+}
+
+
+/* form section */
+/* Add product form */
+#addproduct{
+    display: block;
+    margin: 20px 0;
+}
+
+#form-add{
+    display: flex;
+    align-items:end;
+   
+}
+
+#form-add label,#form-add input {
+  display: block;
+}
+
+#form-add > div {
+  margin: 0px 10px;
+}
+#form-add input {
+    height: 20px;
+  }
+
+#form-add input[type="submit"] {
+     padding: 10px 15px; 
+    color : #f0b6a2;
+    background-color: black;
+   height: fit-content;
+   cursor: pointer;
+  }
+
+  #form-add input[type="file"] {
+    height: fit-content;
+  }
+
+/* Edit form product */
+
+
+  #form-edit{
+    display: block;
+    margin: 20px 0;
+  }
+
+
+
+#form-edit{
+    display: flex;
+    align-items:end;
+   
+}
+
+#form-edit label,#form-edit input {
+  display: block;
+}
+
+#form-edit > div {
+  margin: 0px 10px;
+}
+#form-edit input {
+    height: 20px;
+  }
+
+#form-edit input[type="submit"] {
+     padding: 10px 15px; 
+    color : #f0b6a2;
+    background-color: black;
+   height: fit-content;
+   cursor: pointer;
+  }
+
+  #form-edit input[type="file"] {
+    height: fit-content;
+  }
+
+/* table section */
+
+  .btn{
+ margin:0 5px;
+
+  }
+
+  .btn-container{
+    display: flex;
+
+  }
+
+  .btn a{
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px; 
+    color : #f0b6a2;
+    background-color: black;
+   height: fit-content;
+   cursor: pointer;
+   border-radius: 5px;
+
+  }
+
+table{
+   border-spacing:10px; 
+   width: 100%;
+}
+
+td{
+ text-align: center;
+}
+
+tr{
+    text-align: center;
+}
+
+ #product-customer{
+    display:grid;
+    grid-template-columns: 200px auto;
+
+ }
+
+
+ #product-customer h3{
+
+ text-align: center;
+ }
+
+ #product-container{
+    background-color: #f0b6a2;
+ }
+
+ .btn-container{
+    display: flex;
+    justify-content: center;
+     align-items: center;
+     height: 150px;
+ }
+
+
+
+ #menu-list{
+   
+    padding: 0;
+
+    list-style:none;
+ }
+
+ #menu-list li{
+   padding: 5px 5px;
+   font-size: 20px;
+   margin: 2px 0;
+   margin-right: 10px;
+   cursor: pointer;
+ }
+
+.activ{
+   background-color: white; 
+   border-radius: 5px;
+ }
+  
+ .section{
+    display: none;
+ }
+
+ .active{
+    display: block;
+    background-color: #f0b6a2;
+ }
+
+
+ #addProduct{
+   background-color: black;
+   color:  #f0b6a2;
+   width: fit-content;
+ }
+
+ #addProduct a{
+ text-decoration: none;
+ display: block;
+ padding: 5px 10px;
+     cursor: pointer;
+}
+
+#dropdown{
+    height:20px;
+
+}
+.image{
+    width: 150px;
+    height: 150px;
+}
+
+

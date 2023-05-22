@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+</head>
+<body>
+    <div id="nav"> <div> <h3 id=""> eTrade Admin Page </h3> <p><a style="text-decoration: none;color: #f0b6a2;" href="/admin/logout">Logout</a></p> </div></div>
+    <div id="form-section">
+        <form id="addproduct" enctype="multipart/form-data"
+              method="post" th:action="@{/admin/addproduct}"
+              th:if="${add != null}" th:object="${addproduct}">
+            <div id="form-add">
+                    <div style="font-weight: bold;color: red; margin: 10px 0;" th:text="${errorAdd}"></div>
+                <div> 
+                    <label>Name </label>
+                    <input type="text" required th:field="*{name}"/>
+                </div>
+                <div>
+                    <label>Price</label>
+                    <input type="number" required th:field="*{price}" />
+                </div>
+                <div>
+                    <label>Quantity</label>
+                    <input type="number" required th:field="*{quantity}"/>
+                </div>
+                <div>
+                    <label>Category</label>
+                    <select id="dropdown" name="dropdown" th:field="*{category}">
+                        <option value="Electronic">Electronic</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Image</label>
+                    <input type="file" name="image" required th:field="*{image}"/>
+                </div>
+                <div>
+                  <input type="submit" value="Add Product" />
+                    
+                </div>
+          </div>
+        </form>
+        <form id="editProduct" th:if="${edit != null}" method="post" th:action="@{/admin/editproduct}"  th:object="${editproduct}">
+            <div id="form-edit"> 
+            <div> 
+                <label>Name  </label>
+                <input type="text" name="name" th:field="*{name}"/>
+            </div>
+            <div>
+                <label>Price</label>
+                <input type="number" name="price"  th:field="*{price}"/>
+            </div>
+            <div>
+                <label>Quantity</label>
+                <input type="number" name="quantity"  th:field="*{quantity}"/>
+            </div>
+            <div>
+               
+                <input type="hidden" name="id" th:field="*{id}"/>
+            </div>
+            <div>
+                <input type="submit" value="Edit"/>
+                
+            </div>
+            </div>
+        </form>
+        
+     </div>
+
+     <div id="product-customer" style="padding-top:10px">
+
+        <!-- side menu -->
+        <div id="side-menu">
+            <ul id="menu-list">
+                <li data-name="product" class="menu activ">Product</li>
+               <li data-name="customer" class="menu">customer</li>
+             
+               <li data-name="order" class="menu">Order</li>
+
+            </ul>
+            <p id="addProduct"><a href="/admin/addproduct">Add a product</a></p>
+        </div>
+        <!-- side menu -->
+        <!-- menucontainer -->
+        <div id="content-container">
+            <!-- product container -->
+                <div data-name="product" class="section active" id="product-container"> 
+                     <h3 > Product Section </h3>
+                    <div style="font-weight: bold; font-size:20px; padding-left: 20px"
+                    th:text="${'TOTAL NUMBER OF PRODUCT IN STORE: ' +size}"
+                    ></div>
+                    <table>
+                      <thead>
+                        <tr>
+                         <th>Product id</th>
+                         <th> Image</th>
+                         <th> Name</th>
+                         <th>Price</th>
+                         <th>Quantity</th>
+                         <th> Category</th>
+                         <th>Action</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                      <tr th:each="product : ${products}">
+                        <td th:text="${product.getId()}"></td>
+                        <td><img class="image" th:src="@{/admin/image/{id}(id=${product.getId()})}"/></td>
+                        <td th:text="${product.getName()}">Mango</td>
+                        <td th:text="${'$ '+ product.getPrice() }"></td>
+                        <td th:text="${product.getQuantity()}">50</td>
+                        <td th:text="${product.getCategory() }"> Fashion</td>
+                        <td class="btn-container">
+                            <p class="btn" id="delete"><a th:href="@{/admin/delete(id=${product.getId()})}">Delete</a></p>
+                            <p class="btn" id="edit"><a th:href="@{/admin/editproduct(id=${product.getId()})}">Edit</a></p>
+                        </td>
+                      </tr>
+
+
+                      </tbody>
+
+                    </table>
+                </div>
+            <!-- product container -->
+
+            <!-- customer container -->
+                <div data-name="customer" class="section" id="customer-container">
+                    <h3> Customer Section </h3>
+                    <table>
+                      <thead>
+                        <tr>
+                         <th>Customer Id</th>
+                         <th> Customer Name</th>
+                         <th> Customer Email</th>
+
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                      <tr th:each="customer :${customers}" >
+                        <td th:text="${customer.getId()}">1</td>
+
+
+
+                        <td th:text="${customer.getName()}">50</td>
+                        <td th:text="${customer.email}">Fashion</td>
+
+                      </tr>
+
+
+                      </tbody>
+
+                    </table>
+                
+                </div>
+
+            <!-- customer container -->
+             <!-- customer order -->
+            <div data-name="order" class="section" id="order-container">
+                <div>
+
+                    <form  method="post" th:action="@{/admin/changeorder}"   th:object="${orderDTO}">
+                        <h3 style="width:300px; text-align: center"> change order status</h3>
+
+                        <input type="number" required placeholder="Enter order Id" th:field="*{id}">
+                        <div>
+                            <label>Status</label>
+                            <select id="dropdown" name="dropdown" th:field="*{status}">
+                                <option value="make order">Make order</option>
+                                <option value="pending">Pending</option>
+                                <option value="fulfil">Fulfil</option>
+                            </select>
+                        </div>
+
+                        <input type="submit" value="Change status"/>
+                    </form>
+
+                </div>
+
+                <h3> Order Section </h3>
+                <table>
+                  <thead>
+                    <tr>
+                     <th>Customer Id</th>
+                        <th>Order Id</th>
+                     <th> Image</th>
+                     <th> Name</th>
+                     <th>Price</th>
+                     <th>Quantity</th>
+                     <th> Created Date</th>
+                        <th> Status</th>
+                     <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                  <tr th:each="order: ${orders}" >
+                    <td th:text="${order.getCustomer().getId()}"></td>
+                      <th th:text="${order.getId()}">Customer Id</th>
+                    <td><img class="image" th:src="@{/admin/image/{id}(id=${order.getProductId()})}"/></td>
+                    <td th:text="${order.getName()}"></td>
+                    <td th:text="${'$ ' + order.getPrice()}"></td>
+                    <td th:text="${order.getQuantity()}"></td>
+                    <td th:text="${order.getDateCreated()}"></td>
+                      <td th:text="${order.getStatus()}"></td>
+                    <td class="btn-container">
+                        <p class="btn" id="delete"><a th:href="@{/admin/deleteorder(id=${order.getId()})}">Delete</a></p>
+
+                    </td>
+                  </tr>
+
+
+                  </tbody>
+
+                </table>
+            </div>
+            <!-- customer order -->
+        </div>
+            <!-- menucontainer -->
+
+     </div>
+<script>
+  
+  let menuArray = document.querySelectorAll(".menu");
+  let section = document.querySelectorAll(".section");
+  let menuContainer = document.getElementById("menu-list");
+
+  menuContainer.addEventListener("click", changeSection)
+
+  function changeSection(e){
+         if(e.target.classList.contains("menu")){
+         const current = e.target; 
+          menuArray.forEach((a,b)=>{
+        if(current.dataset.name == a.dataset.name){
+           a.classList.add("activ");
+        }else{
+            a.classList.remove("activ");
+        }
+
+          });
+        
+          section.forEach((a,b)=>{
+        if(current.dataset.name == a.dataset.name){
+           a.classList.add("active");
+        }else{
+            a.classList.remove("active");
+        }
+
+          });
+          
+
+          
+
+         }
+
+  }
+
+
+
+
+</script>
+</body>
+</html>
